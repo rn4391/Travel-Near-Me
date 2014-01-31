@@ -1,0 +1,35 @@
+<script type='text/template' id="locationFooterTemplate">
+	<% 
+		var errorStatus = "progress";
+		if(location.statusCode == "error") {
+			errorStatus = "error";
+		} else if(location.statusCode == "progress") {
+			errorStatus = "progress"
+		} else {
+			errorStatus = "success";
+		}
+
+		var animationClass;
+		if(location.statusCode == "progress") {
+			animationClass= "ani-blink";
+		} else {
+			animationClass = "";
+		}
+	%>
+	<div id="location-footer" class="<%= errorStatus %> <%= animationClass %>">
+		<% 
+			
+		%>
+		<div class="ghost-element"></div>
+		<img class="i-b valign-middle" src="images/location_loading_white.png" id="location-image"/>
+		<div class="i-b valign-middle" id="location-text">
+			<% console.log(location); %>
+			<% if(location.statusCode == "progress" || location.statusCode == "error") {
+					print(location.status);
+				} else if(location.address) {
+					print(location.address);
+				}	 
+			%>
+		</div>
+	</div>
+</script>

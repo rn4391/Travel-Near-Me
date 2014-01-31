@@ -1,0 +1,17 @@
+<script type="text/template">
+<div id="view-type-container">
+	<div class="ghost-element"></div>
+	<%
+		if(viewType != "map") {
+	%>
+			<div id="changeView" class="i-b valign-middle" data-viewType="map">Switch To Map View</div>
+	<%
+		} else {
+	%>
+			<div id="changeView" class="i-b valign-middle" data-viewType="list">Switch To List View</div>
+	<%
+		}
+	%>
+	
+</div>
+</script>

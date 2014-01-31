@@ -1,0 +1,36 @@
+.animation(@properties : "") {
+	img, div {
+		-webkit-animation: @properties;
+		animation : @properties;
+		-moz-animation : @properties;	
+	}
+}
+
+.ani-blink {
+  .animation(blink 1.25s infinite linear);
+}
+
+@-webkit-keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

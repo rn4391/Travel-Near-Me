@@ -1,0 +1,107 @@
+@import "bootstrap.less";
+
+@dark-blue : #001436;
+@blue : #428bca;
+@green : #0C5C32;
+@color-gray : #333;
+@off-white : #fbfbfb;
+@gray: #ddd;
+@dark-gray : #777;
+@white : #FFF;
+@yellow : #DB9D18;
+@red : #970101;
+
+@import url(http://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans);
+body {
+	background: @off-white;
+	font-family: "Open Sans", sans-serif;
+	font-size: 20px;
+	margin: 0;
+	padding: 0;
+	color: @color-gray;
+	min-width: 300px
+}
+
+h1 {
+	font-family: "Montserrat";
+	font-weight: bold;
+	font-size: 3.2em;
+	margin: 0;
+	line-height: 0.7em;
+}
+
+h2 {
+	font-size: 2.7em;
+	font-weight: normal;
+	margin: 0;
+	letter-spacing: 0.04em;
+}
+
+.clear {
+	clear: both;
+	width: 100%;
+	height: 1px;
+}
+
+.ghost-element {
+	width: 1px;
+	height: 100%;
+	margin-right: -0.25em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.i-b {
+	display: inline-block;
+}
+
+.valign-middle {
+	vertical-align: middle;
+}
+
+.scale-transform(@scale : 1) {
+	transfrom: scale(@scale);
+	-webkit-transform: scale(@scale);
+	-moz-transform: scale(@scale);
+}
+
+.rotate-transform(@rotate : 0deg) {
+	transfrom: rotate(@rotate);
+	-webkit-transform: rotate(@rotate);
+	-moz-transform: rotate(@rotate);
+}
+
+#appContainer {
+	width:100%;
+	margin: 110px 0 60px 0;
+	min-height: 70%;
+}
+
+#appFooter {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 50px;
+}
+
+#appHeader {
+	position:fixed;
+	top:0;
+	width:100%;
+	min-width: 300px;
+	border-top:7px solid @dark-blue;
+	background: @off-white;
+}
+
+#search-error-msg {
+	margin: 40px auto;
+}
+
+@import "media-queries.less";
+@import "landing-page.less";
+@import "results-page.less";
+@import "search-page.less";
+@import "location-footer.less";
+@import "header-styles.less";
+@import "view-type-styles.less";
+@import "animation.less";

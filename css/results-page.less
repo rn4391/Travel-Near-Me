@@ -1,0 +1,46 @@
+#mapContainer {
+	height:0px;
+	width:0px;
+}
+#map-canvas {
+	height:70%;
+	width:100%;
+}
+#results {
+	background: @white;
+	padding: 40px 0;
+
+	.resultItem {
+		border: 1px solid @gray;
+		height: 125px;
+
+		.image {
+			.i-b;
+			.valign-middle;
+			max-height:35px;
+			
+			margin:0 15px;
+		}
+
+		.text {
+			.i-b;
+			.valign-middle;
+			width:76%;
+
+			.name {
+				font-weight: bold;
+				font-size: 1em;
+			}
+
+			.res-open {
+				font-size: 0.8em;
+				color: @blue;
+			}
+
+			.res-address {
+				font-size: 0.9em;
+				color: @dark-gray;
+			}
+		}
+	}
+}

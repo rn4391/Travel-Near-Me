@@ -1,0 +1,32 @@
+#location-footer {
+	color: #FFF;
+	min-width: 300px;
+	height: 100%;
+	width: 100%;
+	font-size: 1em;
+	font-weight: normal;
+	text-align: center;	
+
+	#location-image {
+		width:40px;
+		margin-right: 10px;
+	}
+	#location-text {
+		width:75%;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	} 
+}
+
+#location-footer.error {
+	background: @red;
+}
+
+#location-footer.success {
+	background: @green;
+}
+
+#location-footer.progress {
+	background: @yellow;
+}

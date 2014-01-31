@@ -1,0 +1,27 @@
+<script type="text/template">
+	<div id="search-page">
+		<% 
+		if(location.statusCode != "error") {
+		%>
+			<ul id="search-option-list">
+				<li data-params="atm|bank">ATMs and Banks</li>
+				<li data-params="cafe|restaurant|bakery">Bakery, Cafes and Restaurants</li>
+				<li data-params="bus_station|subway_station|taxi_stand|train_station">Bus, Taxi and Train Stations</li>
+				<li data-params="car_repair|car_dealer|parking">Car Parking And Repair</li>
+				<li data-params="doctor|dentist|hospital|pharmacy|veterinary_care">Chemists and Hospitals</li>
+				<li data-params="police|fire_station">Fire and Police Station</li>
+				<li data-params="movie_theater">Movie Theater</li>
+				<li data-params="gas_station">Petrol Pumps</li>
+				<li data-params="shopping_mall|grocery_or_supermarket">Markets and Shopping Malls</li>
+			<ul>
+		<%
+		} else {
+		%>
+			<div id="search-error-msg">
+				We could not find your location. Seems like you have drifted to Mars. Try Again.
+			</div>
+		<%
+		}
+		%>
+	</div>
+</script>

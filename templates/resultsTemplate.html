@@ -1,0 +1,68 @@
+<script type="text/template">
+<!-- because map needs a canvas to render we are generating the map canvas every time. Ideally the list and map view templates should be seperated -->
+	<div id="results">
+		<% 
+			if(locationStatus != "success") {
+				if(viewType == "map") {
+		%>
+				<div id="map-canvas"></div>
+		<%
+			}
+		%>
+			Still Getting Your location.
+		<%
+			} else if(placesStatus != "success" ) {
+				console.log(placesStatus);
+				if(viewType == "map") {
+		%>
+				<div id="map-canvas"></div>
+		<%
+			}
+		%>
+			Finding Places Near You.
+		<%		
+			} else if(!(places instanceof Array) || places.length == 0) {
+		%>	
+				Could not find places near you in a 2km radius.
+		<%	}
+			else if(viewType != "map") {
+				for(var i in places) {
+					var place = places[i],
+						name = place.name;
+
+					if(place.opening_hours) {
+						var open_now = place.opening_hours.open_now || "";
+					}	
+
+					var image = place.icon || {};
+					if(place.photos && place.photos.length > 0) {
+						var obj = (place.photos)[0];
+						if(obj && obj.raw_reference) {
+							image = obj.raw_reference.fife_url;	
+						}
+						
+					}
+						
+					var address = place.vicinity.substring(0,100) || "";
+						
+		%>
+					<div class="resultItem">
+						<div class="ghost-element"></div>
+						<img class="image" src="<%= image %>" />
+						<div class="text">
+							<div class="name"><%= name %></div>
+							<div class="res-open"><% if(open_now) print("Open Now"); %></div>
+							<div class="res-address"><%= address %></div>
+						</div>
+					</div>
+	<%			
+				}
+			} 
+			else if(viewType == "map") {
+		%>
+				<div id="map-canvas"></div>
+		<%
+			}
+		%>
+	</div>
+</script>
