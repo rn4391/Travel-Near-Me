@@ -1,0 +1,38 @@
+<script type="text/template">
+	<div id="results">
+		<%	if(locationStatus == "progress") {
+		%>		<div id="result-status">
+					<div class="ghost-element"></div>
+					<div class="valign-middle i-b">
+						<img src="images/location_loading_blue.png"/>
+						<div class="clear"></div>
+						<div class="text">Still Getting Your Location.</div>
+					</div>
+				</div>
+				<div id="map-canvas"></div>
+		<% 	} else if(locationStatus == "success" && placesStatus != "success") {
+		%>		<div id="result-status">
+					<div class="ghost-element"></div>
+					<div class="valign-middle i-b">
+						<img src="images/location_loading_blue.png"/>
+						<div class="clear"></div>
+						<div class="text">Finding Places Near You.</div>
+					</div>
+				</div>
+				<div id="map-canvas"></div>
+		<%	} else if(!(places instanceof Array) || places.length == 0) {
+		%>		<div id="result-status">
+					<div class="ghost-element"></div>
+					<div class="valign-middle i-b">
+						<img src="images/location_loading_blue.png"/>
+						<div class="clear"></div>
+						<div class="text">Could not find places near you.</div>
+					</div>
+				</div>
+				<div id="map-canvas"></div>
+		<%	} else {
+		%>		<div id="map-canvas"></div>
+		<%	}
+		%>
+	</div>
+</script>

@@ -26,7 +26,8 @@ require.config({
 		//templates
 		'landingPageTemplate' : '../templates/landingPageTemplate.html',
 		'searchPageTemplate' : '../templates/searchPageTemplate.html',
-		'resultsTemplate' : '../templates/resultsTemplate.html',
+		'resultsMapTemplate' : '../templates/resultsMapTemplate.html',
+		'resultsListTemplate' : '../templates/resultsListTemplate.html',
 		'locationFooterTemplate' : '../templates/locationFooterTemplate.html',
 		'headerTemplate' : '../templates/headerTemplate.html',
 		'viewTypeTemplate' : '../templates/viewTypeTemplate.html',

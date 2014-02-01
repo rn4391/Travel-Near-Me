@@ -69,6 +69,7 @@ define(['backbone', 'backboneEvents'], function(Backbone, backboneEvents) {
 		}
 	}
 
+	//interface provided to the model. Ideally all access should be via these functions.
 	var modelObj = {
 		getModel : function() {
 			if(!privateModelObj.model) {
@@ -120,8 +121,8 @@ define(['backbone', 'backboneEvents'], function(Backbone, backboneEvents) {
 				privateModelObj.init();	
 			}
 
-			privateModelObj.model.set({"places" : resultArr});
 			privateModelObj.model.set({"placesStatus" : "success"});
+			privateModelObj.model.set({"places" : resultArr});
 
 		},
 		getSearchParameteres : function() {

@@ -23,7 +23,6 @@
 		<div class="ghost-element"></div>
 		<img class="i-b valign-middle" src="images/location_loading_white.png" id="location-image"/>
 		<div class="i-b valign-middle" id="location-text">
-			<% console.log(location); %>
 			<% if(location.statusCode == "progress" || location.statusCode == "error") {
 					print(location.status);
 				} else if(location.address) {

@@ -1,6 +1,6 @@
 define(['jquery', 'nearMeDataModel', 'text!infoBubbleTemplate'], function($, nearMeDataModel, infoBubbleTemplate){
 	
-	//does tasks beyond the scope of views and updates the model with the results
+	//does tasks beyond the scope of views and updates the model/view with the results
 	var helperFunctions = {
 		//this gets checked on every page the lat-long/ajax request is updated ony if it different frm the one stored.
 		getOrUpdateUserLocation : function() {
@@ -64,8 +64,6 @@ define(['jquery', 'nearMeDataModel', 'text!infoBubbleTemplate'], function($, nea
 			      zoom: 15
 			});
 
-			console.log(parameters);
-			
 			var service = new google.maps.places.PlacesService(document.getElementById(el[0].id));
 			service.nearbySearch(parameters, this.callback);
 
@@ -73,23 +71,23 @@ define(['jquery', 'nearMeDataModel', 'text!infoBubbleTemplate'], function($, nea
 		callback : function(results, status) {
 			nearMeDataModel.setSearchResposne(results);
 		},
+		//map related functions
 		drawMap : function(el) {
-			if(!nearMeDataModel.getMap()) {
-				var loc = nearMeDataModel.getUserLocation();
-				var mapOptions = {
-		          center: new google.maps.LatLng(loc[0], loc[1]),
-		          zoom: 8
-		        };
-		        var map = new google.maps.Map(document.getElementById(el[0].id),
-		            mapOptions);
-		        nearMeDataModel.setMap(map);
-		    }
+			if(nearMeDataModel.getSearchResponse().length > 0) {
+				if(!nearMeDataModel.getMap()) {
+					var loc = nearMeDataModel.getUserLocation();
+					var mapOptions = {
+			          center: new google.maps.LatLng(loc[0], loc[1]),
+			          zoom: 8
+			        };
+			        var map = new google.maps.Map(document.getElementById(el[0].id),
+			            mapOptions);
+			        nearMeDataModel.setMap(map);
+			    }	
+				this.dropMarkers();
+			}	
 		},
 		dropMarkers : function() {
-			if(!nearMeDataModel.getMap()) {
-				this.drawMap();
-			}
-
 			var map = nearMeDataModel.getMap(),
 				mapBounds = new google.maps.LatLngBounds();
 
@@ -107,12 +105,31 @@ define(['jquery', 'nearMeDataModel', 'text!infoBubbleTemplate'], function($, nea
 
 				var contentString = _.template($(infoBubbleTemplate).html(), {name : place.name});
 
-				var infowindow = new google.maps.InfoWindow({
+				var infoWindow = new google.maps.InfoWindow({
 									content: contentString
 								});
 
-				this.addMarkerEvent(marker, infowindow, map);
+				this.addMarkerEvent(marker, infoWindow, map);
 			}
+
+			//drop user location marker 
+			var userLocation = nearMeDataModel.getUserLocation(),
+				userLocationLatLng = new google.maps.LatLng(userLocation[0], userLocation[1]);
+
+			var marker = new google.maps.Marker({
+									position: userLocationLatLng,
+									map: map,
+									icon : 'images/userLocationMarkerIcon.png'
+							});
+
+			var contentString = _.template($(infoBubbleTemplate).html(), {name : "Your Location"});
+
+			var infoWindow = new google.maps.InfoWindow({
+								content: contentString
+							});
+
+			infoWindow.open(map, marker);
+			this.addMarkerEvent(marker, infoWindow, map);
 
 			map.fitBounds(mapBounds);
 		},

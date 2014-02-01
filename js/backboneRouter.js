@@ -73,7 +73,6 @@ define(['backbone', 'backboneViews', 'helperFunctions'], function(Backbone, back
 			//loop through all the active views and call theire remove function
 			if(this.currentViews) {
 				this.currentViews.forEach(function(view){
-					console.log("removed");
 					view.remove();	
 				})
 				

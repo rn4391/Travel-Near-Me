@@ -1,0 +1,64 @@
+<script type="text/template">
+	<div id="results">
+		<% 
+			if(locationStatus == "progress") {
+		%>		<div id="result-status">
+					<div class="ghost-element"></div>
+					<div class="valign-middle i-b">
+						<img src="images/location_loading_blue.png"/>
+						<div class="clear"></div>
+						<div class="text">Still Getting Your Location.</div>
+					</div>
+				</div>
+		<% 	} else if(locationStatus == "success" && placesStatus != "success") {
+		%>		<div id="result-status">
+					<div class="ghost-element"></div>
+					<div class="valign-middle i-b">
+						<img src="images/location_loading_blue.png"/>
+						<div class="clear"></div>
+						<div class="text">Finding Places Near You.</div>
+					</div>
+				</div>
+		<%	} else if(!(places instanceof Array) || places.length == 0) {
+		%>		<div id="result-status">
+					<div class="ghost-element"></div>
+					<div class="valign-middle i-b">
+						<img src="images/location_loading_blue.png"/>
+						<div class="clear"></div>
+						<div class="text">Could not find places near you.</div>
+					</div>
+				</div>
+		<%	} else {
+				for(var i in places) {
+					var place = places[i],
+						name = place.name;
+
+					if(place.opening_hours) {
+						var open_now = place.opening_hours.open_now || "";
+					}	
+
+					var image = place.icon || {};
+					if(place.photos && place.photos.length > 0) {
+						var obj = (place.photos)[0];
+						if(obj && obj.raw_reference) {
+							image = obj.raw_reference.fife_url;	
+						}
+						
+					}
+						
+					var address = place.vicinity.substring(0,100) || "";
+		%>
+					<div class="resultItem">
+						<div class="ghost-element"></div>
+						<img class="image" src="<%= image %>" />
+						<div class="text">
+							<div class="name"><%= name %></div>
+							<div class="res-open"><% if(open_now) print("Open Now"); %></div>
+							<div class="res-address"><%= address %></div>
+						</div>
+					</div>
+		<%
+				}
+			}
+		%>
+</script>

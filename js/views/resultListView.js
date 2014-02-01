@@ -1,5 +1,5 @@
-define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsTemplate', 'text!viewTypeTemplate', 'baseView', 'backboneEvents'], 
-		function(Backbone, nearMeDataModel, helper, resultsTemplate, viewTypeTemplate, BaseView, backboneEvents) {
+define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsListTemplate', 'text!viewTypeTemplate', 'baseView', 'backboneEvents'], 
+		function(Backbone, nearMeDataModel, helper, resultsListTemplate, viewTypeTemplate, BaseView, backboneEvents) {
 	
 	var privateViewObj = {
 		init : function(viewType, category) {
@@ -11,16 +11,15 @@ define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsTemplate'
 				model : nearMeDataModel.getModel(),
 
 				initialize : function() {
-					this.$el.html("<div id='mapContainer'></div><div id='resultsContainer'></div>");
-					
-					//this.model.on("change:location", this.locationChanged, this);
-					this.model.on("change:places", this.renderResults, this);
-					// var eventObj = backboneEvents.getEventPipeline();
-					// eventObj.on("searchResponseUpdated", this.renderResults, this);
-					this.model.on("change:viewType", this.viewTypeChanged, this);
+					//this.$el.html("<div id='mapContainer'></div><div id='resultsContainer'></div>");
 
 					nearMeDataModel.setViewType(this.constructor.arguments[0].viewType);
 					nearMeDataModel.setSearchType(this.constructor.arguments[0].category);
+
+					//attaching these events after setting the above values, 
+					//because we do not want to trigger the events for initialization
+					this.model.on("change:places change:location", this.renderResults, this);
+					this.model.on("change:viewType", this.viewTypeChanged, this);
 
 					this.renderResults();
 				},
@@ -35,13 +34,11 @@ define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsTemplate'
 				},
 
 				renderResults : function() {
-					console.log("here map");
-					this.$el.find("#resultsContainer").html(_.template($(resultsTemplate).html(), {
-																									places: this.model.get("places"),
-																									viewType : this.model.get("viewType"),
-																									placesStatus : this.model.get("placesStatus"),
-																									locationStatus : this.model.attributes.location.statusCode
-																									}
+					this.$el.html(_.template($(resultsListTemplate).html(), {
+																				places: this.model.get("places"),
+																				placesStatus : this.model.get("placesStatus"),
+																				locationStatus : this.model.attributes.location.statusCode
+																				}
 					));
 					this.$el.prepend(_.template($(viewTypeTemplate).html(), { viewType : this.model.get('viewType') }));
 				
@@ -49,12 +46,13 @@ define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsTemplate'
 				},
 
 				viewTypeChanged : function() {
-					var that = this,
-						url = "results/"+ that.model.get("viewType") +"/" + that.model.get("category");
+					var url = "results/"+ this.model.get("viewType") +"/" + this.model.get("category");
 
-					require(['backboneRouter'], function(router){
-						router.navigate(url, true, true);
-					});	
+					if(this.model.get("category") != "") {
+						require(['backboneRouter'], function(router){
+							router.navigate(url, true, true);
+						});
+					}	
 					
 				}
 			});

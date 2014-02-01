@@ -6166,6 +6166,15 @@ h2 {
   background: #ffffff;
   padding: 40px 0;
 }
+#results #result-status {
+  text-align: center;
+  height: 50%;
+}
+#results #result-status .text {
+  font-weight: bold;
+  color: #001436;
+  font-size: 1.2em;
+}
 #results .resultItem {
   border: 1px solid #dddddd;
   height: 125px;
