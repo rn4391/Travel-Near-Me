@@ -11,7 +11,7 @@ define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsMapTempla
 				model : nearMeDataModel.getModel(),
 
 				initialize : function() {
-					this.$el.html("<div id='mapContainer'></div><div id='resultsContainer'></div>");
+					//this.$el.html("<div id='mapContainer'></div><div id='resultsContainer'></div>");
 					
 					nearMeDataModel.setSearchType(this.constructor.arguments[0].category);
 					nearMeDataModel.setViewType(this.constructor.arguments[0].viewType);
@@ -39,12 +39,11 @@ define(['backbone', 'nearMeDataModel', 'helperFunctions', 'text!resultsMapTempla
 					nearMeDataModel.destroyMap();
 
 					//in map view only the map container is rendered
-					this.$el.find("#resultsContainer").html(_.template($(resultsMapTemplate).html(), {
-																								places: this.model.get("places"),
-																								viewType : this.model.get("viewType"),
-																								placesStatus : this.model.get("placesStatus"),
-																								locationStatus : this.model.attributes.location.statusCode
-																								}
+					this.$el.html(_.template($(resultsMapTemplate).html(), {
+																			places: this.model.get("places"),
+																			placesStatus : this.model.get("placesStatus"),
+																			locationStatus : this.model.attributes.location.statusCode
+																			}
 					));
 					this.$el.prepend(_.template($(viewTypeTemplate).html(), { viewType : this.model.get('viewType') }));
 					
